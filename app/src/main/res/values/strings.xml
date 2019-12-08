@@ -2,9 +2,9 @@
     <string name="app_name">Chance</string>
     <string name="app_text">Try Your Luck</string>
     <string name="app_image">A normal photo</string>
+    <string name="app_start">START</string>
     <string name="app_info"> </string>
     <string name="app_devp"> </string>
-
 
 
 </resources>

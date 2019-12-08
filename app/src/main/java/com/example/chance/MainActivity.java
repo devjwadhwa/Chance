@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 //import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 //import android.media.Ringtone;
@@ -27,37 +28,24 @@ public class MainActivity extends AppCompatActivity {
     private Random rng = new Random();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageViewDice = findViewById(R.id.image_view_dice);
-        imageViewDice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceRoll();
-            }
-        });
+        imageViewDice.setOnClickListener(v -> diceRoll());
 
         Button button = findViewById(R.id.info);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View unused) {
-                MainActivity.this.startActivity(new Intent(MainActivity.this, InfoActivity.class));
-            }
-        });
+        button.setOnClickListener(unused -> MainActivity.this.startActivity(new Intent(MainActivity.this, InfoActivity.class)));
 
         Button tubbon = findViewById(R.id.dev);
-        tubbon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View unused) {
-                MainActivity.this.startActivity(new Intent(MainActivity.this, developers.class));
-            }
-        });
+        tubbon.setOnClickListener(unused -> MainActivity.this.startActivity(new Intent(MainActivity.this, developers.class)));
 
 
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void diceRoll() {
         MediaPlayer roll = MediaPlayer.create(MainActivity.this, R.raw.diceroll);

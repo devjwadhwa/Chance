@@ -1,24 +1,24 @@
 package com.example.chance;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-//import android.content.Context;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
-//import android.media.Ringtone;
-//import android.media.RingtoneManager;
-//import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
+
+//import android.content.Context;
+//import android.media.Ringtone;
+//import android.media.RingtoneManager;
+//import android.net.Uri;
 
 public class MainActivity extends AppCompatActivity {
     private int wctr = 0;
@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private int i = 0;
     private ImageView imageViewDice;
     private Random rng = new Random();
+    MediaPlayer mysong;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -33,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mysong = MediaPlayer.create(this, R.raw.background);
+        mysong.start();
+
+
         imageViewDice = findViewById(R.id.image_view_dice);
         imageViewDice.setOnClickListener(v -> diceRoll());
 
@@ -85,13 +92,17 @@ public class MainActivity extends AppCompatActivity {
             MediaPlayer song = MediaPlayer.create(MainActivity.this, R.raw.win);
             song.start();
             Toast.makeText(this, "You WIN!" + '\n' + "Pop the champagne" + '\n' + "Congratulations :)", Toast.LENGTH_LONG).show();
+            mysong.release();
             finish();
 
         } else if (lctr == 3) {
             MediaPlayer song = MediaPlayer.create(MainActivity.this ,R.raw.lose);
             song.start();
             Toast.makeText(this, "You LOSE!" + '\n' + "Kill Yourself" + '\n'+ "Nah, I'm kidding :P", Toast.LENGTH_LONG).show();
+            mysong.release();
             finish();
         }
+
+
     }
 }

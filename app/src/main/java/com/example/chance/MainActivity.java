@@ -102,7 +102,5 @@ public class MainActivity extends AppCompatActivity {
             mysong.release();
             finish();
         }
-
-
     }
 }

@@ -21,6 +21,7 @@ import java.util.Random;
 //import android.net.Uri;
 
 public class MainActivity extends AppCompatActivity {
+
     private int wctr = 0;
     private int lctr = 0;
     private int i = 0;
@@ -28,17 +29,19 @@ public class MainActivity extends AppCompatActivity {
     private Random rng = new Random();
     MediaPlayer mysong;
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // insert zong
+
         mysong = MediaPlayer.create(this, R.raw.bg);
         mysong.start();
 
+        // buttons
 
         imageViewDice = findViewById(R.id.image_view_dice);
         imageViewDice.setOnClickListener(v -> diceRoll());
@@ -49,15 +52,21 @@ public class MainActivity extends AppCompatActivity {
         Button tubbon = findViewById(R.id.dev);
         tubbon.setOnClickListener(unused -> MainActivity.this.startActivity(new Intent(MainActivity.this, developers.class)));
 
-
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     private void diceRoll() {
         MediaPlayer roll = MediaPlayer.create(MainActivity.this, R.raw.diceroll);
         roll.start();
+
+        // random integer
+
         int num = rng.nextInt(6) + 1;
+
+        // 6 cases
+
         switch (num) {
             case 1:
                 imageViewDice.setImageResource(R.drawable.pic1);
@@ -78,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 imageViewDice.setImageResource(R.drawable.pic6);
                 break;
         }
+
+        // winning and losing the game
+
         if (num > 3) {
             wctr++;
             TextView t = findViewById(R.id.textView);
@@ -88,12 +100,16 @@ public class MainActivity extends AppCompatActivity {
             t.setText("<= 3 : Lost " + lctr + " times");
         }
 
+        // win
+
         if (wctr == 3) {
             MediaPlayer song = MediaPlayer.create(MainActivity.this, R.raw.win);
             song.start();
             Toast.makeText(this, "You WIN!" + '\n' + "Pop the champagne" + '\n' + "Congratulations :)", Toast.LENGTH_LONG).show();
             mysong.release();
             finish();
+
+            // lose
 
         } else if (lctr == 3) {
             MediaPlayer song = MediaPlayer.create(MainActivity.this ,R.raw.lose);
